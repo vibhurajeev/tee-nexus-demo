@@ -1,0 +1,21 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.1.0",
+    "hardhat": "^2.26.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@hyperlane-xyz/core": "^9.0.1",
+    "@hyperlane-xyz/registry": "^19.4.0",
+    "@hyperlane-xyz/sdk": "^15.0.0",
+    "dotenv": "^17.2.0"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy-mockclients.ts",
+    "verify:sepolia": "hardhat run scripts/verify-mockclients.ts --network sepolia",
+    "verify:arbitrumsepolia": "hardhat run scripts/verify-mockclients.ts --network arbitrumsepolia"
+  }
+}
