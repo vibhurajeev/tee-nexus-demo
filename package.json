@@ -10,12 +10,14 @@
     "@hyperlane-xyz/core": "^9.0.1",
     "@hyperlane-xyz/registry": "^19.4.0",
     "@hyperlane-xyz/sdk": "^15.0.0",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.0",
+    "ethers": "^5.8.0"
   },
   "scripts": {
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy-mockclients.ts",
     "verify:sepolia": "hardhat run scripts/verify-mockclients.ts --network sepolia",
-    "verify:arbitrumsepolia": "hardhat run scripts/verify-mockclients.ts --network arbitrumsepolia"
+    "verify:arbitrumsepolia": "hardhat run scripts/verify-mockclients.ts --network arbitrumsepolia",
+    "send-message": "hardhat run scripts/send-message.ts --network sepolia"
   }
 }

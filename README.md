@@ -59,6 +59,30 @@ npx hardhat vars list
      ```
    - **Note:** Verification on Arbitrum Sepolia is currently failing due to block explorer/API issues. This will be fixed soon.
 
+5. **Send a cross-chain message:**
+   - After deployment, you can send a "Hello World" message from one chain to another using:
+     ```shell
+     npm run send-message
+     ```
+   - This script performs the following steps:
+     1. Connects to the source chain's Mailbox contract
+     2. Calls `quoteDispatch` to get the exact amount of native token (ETH) required for the cross-chain message
+     3. Displays the quoted amount needed for the transaction
+     4. Sends the message with the exact quoted value attached to the transaction
+   - **Important:** The quoted amount is the exact value required by the Hyperlane protocol to process the cross-chain message. This covers:
+     - Gas costs on the destination chain
+     - Protocol fees
+     - Any additional costs for message delivery
+   - The message will be processed by the destination chain's Mailbox and delivered to the recipient contract
+
+   Example output:
+   ```
+   Calling sendHelloWorld on sepolia:0x1234... with destination address 0x5678... and domain 421614
+   Message: Hello World!
+   Quote for dispatching message: 0.000031460400000001 ETH
+   ```
+
+
 ## Troubleshooting & Manual Process
 
 - **Nexus ISM addresses:**

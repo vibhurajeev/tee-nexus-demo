@@ -27,21 +27,17 @@ if (!PRIVATE_KEY) {
 }
 
 function getSigner(rpc: string) {
-  const provider = new ethers.JsonRpcProvider(rpc);
+  const provider = new ethers.providers.JsonRpcProvider(rpc);
   return new ethers.Wallet(PRIVATE_KEY!, provider);
 }
 
 async function deployMockClient(cfg: any) {
   const signer = getSigner(cfg.rpc);
   const mailbox = chainAddresses[cfg.name as keyof typeof chainAddresses].mailbox;
-  const MockClientFactory = new ethers.ContractFactory(
-    (await hardhatEthers.getContractFactory("MockClient")).interface.fragments,
-    (await hardhatEthers.getContractFactory("MockClient")).bytecode,
-    signer
-  );
-  const mockClient = await MockClientFactory.deploy(mailbox, ethers.ZeroAddress);
-  await mockClient.waitForDeployment();
-  const address = await mockClient.getAddress();
+  const MockClientFactory = new MockClient__factory(signer);
+  const mockClient = await MockClientFactory.deploy(mailbox, ethers.constants.AddressZero);
+  await mockClient.deployTransaction.wait();
+  const address = mockClient.address;
   console.log(`${cfg.name} MockClient deployed at:`, address);
   return { address, chainId: cfg.chainId, signer };
 }
@@ -50,7 +46,7 @@ async function verifyContract(cfg: any, address: string, mailbox: string) {
   try {
     await run("verify:etherscan", {
       address,
-      constructorArguments: [mailbox, ethers.ZeroAddress],
+      constructorArguments: [mailbox, ethers.constants.AddressZero],
       network: cfg.name,
     });
     console.log(`Verified MockClient on ${cfg.name}`);
@@ -71,7 +67,7 @@ async function main() {
       mailbox,
       chainId: cfg.chainId,
       network: cfg.name,
-      constructorArgs: [mailbox, ethers.ZeroAddress],
+      constructorArgs: [mailbox, ethers.constants.AddressZero],
     };
     await verifyContract(cfg, deployed.address, mailbox);
   }
@@ -97,8 +93,8 @@ async function main() {
 
     console.log(`Calling enrollRemoteRouter on ${cfg.name}:${local.address} with remote address ${remote.address} and domain ${remote.chainId}`);
     // ABI-encode remote.address as bytes32
-    const routerBytes32 = ethers.zeroPadValue(remote.address, 32);
-    const abiEncodedRouter = ethers.AbiCoder.defaultAbiCoder().encode(["bytes32"], [routerBytes32]);
+    const routerBytes32 = ethers.utils.zeroPad(remote.address, 32);
+    const abiEncodedRouter = ethers.utils.defaultAbiCoder.encode(["bytes32"], [routerBytes32]);
     console.log(`AbiEncodedRouter: ${abiEncodedRouter}`);
 
     const tx1 = await mockClient.enrollRemoteRouter(remote.chainId, abiEncodedRouter);
