@@ -1,4 +1,4 @@
-import { ethers as hardhatEthers, network, run } from "hardhat";
+import { network, run } from "hardhat";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { chainAddresses } from '@hyperlane-xyz/registry';
 import { ethers } from "ethers";
@@ -13,13 +13,13 @@ const CHAIN_CONFIG = {
     chainId: 11155111,
     name: "sepolia",
     rpc: "https://eth-sepolia.g.alchemy.com/v2/fl94lXT-IxAhUmbp5fOua",
-    interchainSecurityModule: "0x2004694c5801e7a6F7C72aDc8275Fd63C3068BCE",
+    interchainSecurityModule: "0xDD4fbD3aC31D4C86ff95f9b14102F0ac5F42AcCA",
   },
   arbitrumsepolia: {
     chainId: 421614,
     name: "arbitrumsepolia",
     rpc: "https://sepolia-rollup.arbitrum.io/rpc",
-    interchainSecurityModule: "0xAd96506f940e114FF35A9Eb6489e731d66180B99",
+    interchainSecurityModule: "0xEdAf97e7cb3A052F5A39577A7c6ED23835feC54E",
   },
 };
 

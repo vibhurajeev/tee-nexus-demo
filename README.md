@@ -86,8 +86,8 @@ npx hardhat vars list
 ## Troubleshooting & Manual Process
 
 - **Nexus ISM addresses:**
-  - Sepolia: `0x2004694c5801e7a6F7C72aDc8275Fd63C3068BCE`
-  - Arbitrum Sepolia: `0xAd96506f940e114FF35A9Eb6489e731d66180B99`
+  - Sepolia: `0xDD4fbD3aC31D4C86ff95f9b14102F0ac5F42AcCA`
+  - Arbitrum Sepolia: `0xEdAf97e7cb3A052F5A39577A7c6ED23835feC54E`
 - The deployment script uses these by default, but you can override them in `deploy-mockclients.ts` if needed.
 - If you need to re-verify or debug, check `deployments/mockclient.json` for contract addresses and constructor arguments.
 
